@@ -1,0 +1,75 @@
+<div class="clientes-container">
+  <h2>Cadastro de Clientes</h2>
+
+  <!-- Formulário de Adição -->
+  <div class="form-container">
+    <h3>Adicionar Novo Cliente</h3>
+    <div class="form-group">
+      <label for="nome">Nome:</label>
+      <input type="text" id="nome" name="nome" [(ngModel)]="novoCliente.nome" required>
+    </div>
+    <div class="form-group">
+      <label for="apelido">Apelido:</label>
+      <input type="text" id="apelido" name="apelido" [(ngModel)]="novoCliente.apelido">
+    </div>
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" [(ngModel)]="novoCliente.email">
+    </div>
+    <div class="form-group">
+      <label for="telefone">Telefone:</label>
+      <input type="tel" id="telefone" name="telefone" [(ngModel)]="novoCliente.telefone">
+    </div>
+    <div class="form-group">
+      <label for="observacao">Observação:</label>
+      <textarea id="observacao" name="observacao" [(ngModel)]="novoCliente.observacao"></textarea>
+    </div>
+    <button (click)="adicionarCliente()">Adicionar</button>
+  </div>
+
+  <!-- Lista de Clientes -->
+  <div class="list-container">
+    <h3>Lista de Clientes</h3>
+    <table class="clientes-table">
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Apelido</th>
+          <th>Email</th>
+          <th>Telefone</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let cliente of clientes">
+          <td>
+            <input type="text" *ngIf="estaEditando(cliente)" [(ngModel)]="editandoCliente.nome">
+            <span *ngIf="!estaEditando(cliente)">{{cliente.nome}}</span>
+          </td>
+          <td>
+            <input type="text" *ngIf="estaEditando(cliente)" [(ngModel)]="editandoCliente.apelido">
+            <span *ngIf="!estaEditando(cliente)">{{cliente.apelido}}</span>
+          </td>
+          <td>
+            <input type="email" *ngIf="estaEditando(cliente)" [(ngModel)]="editandoCliente.email">
+            <span *ngIf="!estaEditando(cliente)">{{cliente.email}}</span>
+          </td>
+          <td>
+            <input type="tel" *ngIf="estaEditando(cliente)" [(ngModel)]="editandoCliente.telefone">
+            <span *ngIf="!estaEditando(cliente)">{{cliente.telefone}}</span>
+          </td>
+          <td>
+            <div *ngIf="estaEditando(cliente)">
+              <button (click)="salvarCliente()">Salvar</button>
+              <button (click)="cancelarEdicao()">Cancelar</button>
+            </div>
+            <div *ngIf="!estaEditando(cliente)">
+              <button (click)="editarCliente(cliente)">Editar</button>
+              <button (click)="excluirCliente(cliente.id)">Excluir</button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

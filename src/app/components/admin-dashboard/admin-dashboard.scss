@@ -1,0 +1,228 @@
+.admin-container {
+  display: flex;
+  min-height: 100vh;
+  font-family: sans-serif;
+}
+
+.sidebar {
+  width: 250px;
+  background-color: #2c3e50;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
+
+  h2 { color: #d4a017; text-align: center; margin-bottom: 2rem; }
+  ul { list-style: none; padding: 0; flex: 1; }
+  li { margin-bottom: 0.5rem; }
+  a {
+    color: #ecf0f1; text-decoration: none; display: block; padding: 0.75rem; border-radius: 4px;
+    &:hover, &.active { background-color: #34495e; color: #d4a017; }
+  }
+  .logout-btn {
+    background-color: #c0392b; color: white; border: none; padding: 0.75rem;
+    border-radius: 4px; cursor: pointer; width: 100%; font-weight: bold;
+    &:hover { background-color: #e74c3c; }
+  }
+}
+
+.main-content {
+  flex: 1;
+  background-color: #f4f6f7;
+  padding: 2rem;
+
+  header { margin-bottom: 2rem; h1 { color: #2c3e50; } }
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+
+  h3 { margin: 0; }
+}
+
+.btn-primary {
+  background-color: #d4a017;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.2s;
+
+  &:hover { background-color: #b8860b; }
+}
+
+.btn-secondary {
+  background-color: #95a5a6;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-right: 0.5rem;
+  &:hover { background-color: #7f8c8d; }
+}
+
+.btn-warning {
+  background-color: #e67e22;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-right: 0.5rem;
+  &:hover { background-color: #d35400; }
+}
+
+.appointments-table {
+  width: 100%;
+  background: white;
+  border-collapse: collapse;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+
+  th, td { padding: 1rem; text-align: left; border-bottom: 1px solid #eee; }
+  th { background-color: #ecf0f1; color: #7f8c8d; font-weight: 600; }
+  tr:hover { background-color: #fcfcfc; }
+
+  .status-badge {
+    padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.75rem; font-weight: bold; text-transform: uppercase;
+    &.pendente { background-color: #fff3cd; color: #856404; }
+    &.aprovado { background-color: #d4edda; color: #155724; }
+  }
+
+  .action-btn {
+    background: none; border: 1px solid #ddd; width: 32px; height: 32px;
+    border-radius: 4px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center;
+    margin-right: 0.25rem;
+    &.approve { color: #27ae60; border-color: #27ae60; &:hover { background-color: #27ae60; color: white; } }
+    &.edit { color: #2980b9; border-color: #2980b9; &:hover { background-color: #2980b9; color: white; } }
+    &.delete { color: #c0392b; border-color: #c0392b; &:hover { background-color: #c0392b; color: white; } }
+  }
+}
+
+/* Modal Styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    
+    h2 { margin: 0; color: #2c3e50; }
+    .close-btn { background: none; border: none; font-size: 1.5rem; cursor: pointer; color: #7f8c8d; }
+  }
+
+  .form-group {
+    margin-bottom: 1rem;
+    label { display: block; margin-bottom: 0.5rem; font-weight: 500; color: #333; }
+    input, select {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+  }
+
+  .modal-footer {
+    display: flex; justify-content: flex-end; margin-top: 1.5rem;
+  }
+}
+
+/* Financeiro */
+.finance-cards {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+
+  .card {
+    flex: 1;
+    min-width: 200px;
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    text-align: center;
+
+    h4 { margin: 0 0 0.5rem 0; color: #7f8c8d; font-size: 0.9rem; text-transform: uppercase; }
+    p { margin: 0; font-size: 1.8rem; font-weight: bold; color: #2c3e50; }
+
+    &.entrada p { color: #27ae60; }
+    &.saida-contas p { color: #c0392b; }
+    &.saida-compras p { color: #e74c3c; }
+    &.saldo {
+      &.negativo p { color: #c0392b; }
+      p { color: #2980b9; }
+    }
+  }
+}
+
+.chart-container {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+
+  h4 { margin-top: 0; color: #2c3e50; margin-bottom: 2rem; text-align: center; }
+
+  .simple-bar-chart {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    height: 200px;
+    gap: 4rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #eee;
+
+    .bar-group {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      height: 100%;
+      justify-content: flex-end;
+      width: 60px;
+
+      .bar {
+        width: 100%;
+        border-radius: 4px 4px 0 0;
+        transition: height 0.5s ease;
+        min-height: 2px;
+        
+        &.entrada-bar { background-color: #27ae60; }
+        &.saida-contas-bar { background-color: #c0392b; }
+        &.saida-compras-bar { background-color: #e74c3c; }
+      }
+
+      .label { margin-top: 0.5rem; font-weight: bold; color: #555; }
+    }
+  }
+}

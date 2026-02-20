@@ -1,0 +1,59 @@
+<div class="reservation-container">
+  <!-- Botão reposicionado para o topo direito. Usando (click) pois RouterModule não foi importado no componente -->
+  <button class="btn-restricted" (click)="irParaLogin()">Área Restrita</button>
+
+  <div class="reservation-card">
+    <h2>Agende sua Sessão</h2>
+    
+    <form (ngSubmit)="finalizarReserva()" #form="ngForm">
+      
+      <div class="form-group">
+        <label for="nomeCliente">Nome Completo</label>
+        <input type="text" id="nomeCliente" name="nomeCliente" [(ngModel)]="novoAgendamento.nomeCliente" required>
+      </div>
+
+      <div class="form-group">
+        <label for="apelido">Apelido</label>
+        <input type="text" id="apelido" name="apelido" [(ngModel)]="novoAgendamento.apelido" placeholder="Como gostaria de ser chamada?">
+      </div>
+      
+      <div class="form-group">
+        <label for="telefone">Telefone</label>
+        <input 
+          type="tel" 
+          id="telefone" 
+          name="telefone"
+          placeholder="(99) 99999-9999"
+          (input)="formatarTelefone($event)"
+          [(ngModel)]="novoAgendamento.telefone" 
+          maxlength="15"
+          required>
+      </div>
+
+      <div class="form-group">
+        <label for="unidade">Unidade</label>
+        <select id="unidade" name="unidade" [(ngModel)]="novoAgendamento.unidade" required>
+          <option value="" disabled selected>Selecione uma unidade</option>
+          <option *ngFor="let u of unidades" [ngValue]="u.nome">{{ u.nome }}</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="procedimento">Procedimento</label>
+        <select id="procedimento" name="procedimento" [(ngModel)]="novoAgendamento.procedimento" required>
+          <option value="" disabled selected>Selecione um procedimento</option>
+          <option *ngFor="let p of procedimentos" [ngValue]="p.nome">{{ p.nome }}</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="dataHora">Data e Hora</label>
+        <input type="datetime-local" id="dataHora" name="dataHora" [(ngModel)]="novoAgendamento.dataHora" required>
+      </div>
+
+      <button type="submit" class="btn-submit" [disabled]="!form.valid">
+        Confirmar Agendamento
+      </button>
+    </form>
+  </div>
+</div>
