@@ -8,7 +8,7 @@ import { tap, catchError } from 'rxjs/operators';
 })
 export class AdminService {
   // Ajuste a URL conforme a porta do seu back-end
-  private apiUrl = 'http://localhost:8090/api';
+  private apiUrl = 'http://136.248.120.4';
 
   constructor(private http: HttpClient) { }
 
