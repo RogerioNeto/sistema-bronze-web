@@ -8,7 +8,9 @@ import { Agendamento } from '../models/agendamento';
 })
 export class AgendamentoService {
   // URL que criamos no AgendamentoController do IntelliJ
-  private apiUrl = 'http://localhost:8090/api/agendamentos';
+  // Substitua o localhost pelo IP da sua Oracle Cloud
+  private apiUrl = 'http://136.248.120.4';
+
 
   constructor(private http: HttpClient) { }
 
