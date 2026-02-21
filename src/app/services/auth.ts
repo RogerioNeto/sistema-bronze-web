@@ -7,7 +7,7 @@ import { environment } from '../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private readonly URL = `${environment.apiUrl0}`;// Endpoint que criaremos no Java
+  private readonly URL = `${environment.apiUrl}`;// Endpoint que criaremos no Java
 
   constructor(private http: HttpClient) {}
 
