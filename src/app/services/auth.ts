@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { tap } from 'rxjs/operators';
 import { LoginResponse } from '../models/login-response';
 import { Observable } from 'rxjs';
@@ -12,7 +12,10 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
   login(credentials: any): Observable<LoginResponse> {
-    return this.http.post<LoginResponse>(`${this.URL}/login`, credentials).pipe(
+    const headers = new HttpHeaders({
+      'ngrok-skip-browser-warning': 'true'
+    });
+    return this.http.post<LoginResponse>(`${this.URL}/login`, credentials, { headers }).pipe(
       tap(res => {
         localStorage.setItem('token', res.token);
         localStorage.setItem('role', res.role);
