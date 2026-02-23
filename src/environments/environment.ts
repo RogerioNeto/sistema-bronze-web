@@ -1,6 +1,6 @@
 export const environment = {
     production: true,
-    apiUrl: 'https://tearless-nondedicative-rodrigo.ngrok-free.dev/api',
+    apiUrl: 'http://136.248.118.51:8090/api',
     featureFlag: {
         enableNewFeature: true,
     },
