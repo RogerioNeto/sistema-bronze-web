@@ -39,12 +39,26 @@
       </div>
 
       <div class="form-group">
-        <label for="procedimento">Procedimento</label>
-        <select id="procedimento" name="procedimento" [(ngModel)]="novoAgendamento.procedimento" required>
-          <option value="" disabled selected>Selecione um procedimento</option>
-          <option *ngFor="let p of procedimentos" [ngValue]="p.nome">{{ p.nome }}</option>
+        <label for="procedimento">Procedimentos (Segure Ctrl para selecionar vários)</label>
+        <!-- O atributo 'multiple' permite selecionar mais de um -->
+        <!-- Ligamos ao 'procedimentosSelecionados' em vez de 'novoAgendamento.procedimento' -->
+        <select id="procedimento" name="procedimento" multiple 
+                [(ngModel)]="procedimentosSelecionados" required
+                class="form-control" 
+                style="height: 150px;"> <!-- Altura maior para ver a lista -->
+          
+          <!-- Exibe o Nome e o Valor formatado -->
+          <option *ngFor="let proc of procedimentos" [ngValue]="proc">
+            {{ proc.nome }} - R$ {{ proc.valor | number:'1.2-2' }}
+          </option>
         </select>
+
+       <!-- (Opcional) Mostra o total estimado abaixo do campo -->
+        <div *ngIf="procedimentosSelecionados.length > 0" style="margin-top: 5px; font-weight: bold; color: #d4af37;">
+            Total Estimado: R$ {{ calcularTotal() | number:'1.2-2' }}
+        </div>
       </div>
+
 
       <div class="form-group">
         <label for="dataHora">Data e Hora</label>

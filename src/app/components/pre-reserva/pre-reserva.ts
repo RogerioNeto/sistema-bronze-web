@@ -144,4 +144,9 @@ export class PreReserva implements OnInit {
     const url = `https://wa.me/${numeroEmpresa}?text=${encodeURIComponent(texto)}`;
     window.open(url, '_blank');
   }
+
+  // Calcula a soma dos valores dos procedimentos selecionados
+  calcularTotal(): number {
+    return this.procedimentosSelecionados.reduce((total, proc) => total + (proc.valor || 0), 0);
+  }
 }
