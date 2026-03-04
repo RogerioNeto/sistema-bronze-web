@@ -13,7 +13,6 @@ export class AuthService {
 
   login(credentials: any): Observable<LoginResponse> {
     const headers = new HttpHeaders({
-      'ngrok-skip-browser-warning': 'true'
     });
     return this.http.post<LoginResponse>(`${this.URL}/auth/login`, credentials, { headers }).pipe(
       tap(res => {
