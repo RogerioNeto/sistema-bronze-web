@@ -16,11 +16,11 @@ export class AgendamentoService {
 
   enviarReserva(dados: Agendamento): Observable<Agendamento> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.post<Agendamento>(`${this.URL}/pre-reserva`, dados, { headers, withCredentials: false });
+    return this.http.post<Agendamento>(`${this.URL}/agendamentos/pre-reserva`, dados, { headers, withCredentials: false });
   }
 
   getAgendamentos(): Observable<Agendamento[]> {
-    return this.http.get<Agendamento[]>(this.URL);
+    return this.http.get<Agendamento[]>(`${this.URL}/agendamentos`);
   }
 
   aprovarAgendamento(id: number): Observable<void> {

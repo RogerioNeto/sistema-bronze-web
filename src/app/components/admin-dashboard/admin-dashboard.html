@@ -321,11 +321,12 @@
             </div>
             <div class="form-group">
               <label>Cliente</label>
-              <select [(ngModel)]="formData.nomeCliente" name="nomeCliente" required>
+              <select [(ngModel)]="formData.nomeCliente" (ngModelChange)="onClienteChange($event)" name="nomeCliente" required>
                 <option value="" disabled selected>Selecione o cliente</option>
                 <option *ngFor="let c of clientes" [value]="c.nome">{{ c.nome }}</option>
               </select>
             </div>
+            <div class="form-group"><label>Apelido</label><input [(ngModel)]="formData.apelido" name="apelido"></div>
             <div class="form-group"><label>Telefone</label><input [(ngModel)]="formData.telefone" name="telefone" required></div>
             <div class="form-group"><label>Data/Hora</label><input type="datetime-local" [(ngModel)]="formData.dataHora" name="dataHora" required></div>
             <div class="form-group">

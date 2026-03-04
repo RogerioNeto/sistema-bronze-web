@@ -15,7 +15,7 @@ export class AuthService {
     const headers = new HttpHeaders({
       'ngrok-skip-browser-warning': 'true'
     });
-    return this.http.post<LoginResponse>(`${this.URL}/login`, credentials, { headers }).pipe(
+    return this.http.post<LoginResponse>(`${this.URL}/auth/login`, credentials, { headers }).pipe(
       tap(res => {
         localStorage.setItem('token', res.token);
         localStorage.setItem('role', res.role);

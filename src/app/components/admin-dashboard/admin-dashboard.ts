@@ -231,6 +231,14 @@ export class AdminDashboard implements OnInit {
     }
   }
 
+  onClienteChange(nomeCliente: string) {
+    const cliente = this.clientes.find(c => c.nome === nomeCliente);
+    if (cliente) {
+      this.formData.apelido = cliente.apelido;
+      if (cliente.telefone) this.formData.telefone = cliente.telefone;
+    }
+  }
+
   // --- Lógica da Comanda ---
 
   onAgendamentoChange() {

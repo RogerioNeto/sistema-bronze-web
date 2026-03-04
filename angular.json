@@ -71,7 +71,8 @@
               "buildTarget": "feita_debronze:build:production"
             },
             "development": {
-              "buildTarget": "feita_debronze:build:development"
+              "buildTarget": "feita_debronze:build:development",
+              "proxyConfig": "proxy.conf.json"
             }
           },
           "defaultConfiguration": "development"

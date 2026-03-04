@@ -33,4 +33,9 @@ export class Login {
       }
     });
   }
+
+  irParaReserva(){
+    this.router.navigate(['/reserva']);
+  }
+
 }

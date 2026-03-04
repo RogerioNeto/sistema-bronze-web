@@ -1,4 +1,4 @@
 export const environment = {
   production: false,
-  apiUrl: 'https://tearless-nondedicative-rodrigo.ngrok-free.dev/api' // Seu PC local
+  apiUrl: 'http://localhost:8080/api'   // Seu PC local
 };
