@@ -1,6 +1,6 @@
 export const environment = {
     production: true,
-    apiUrl: 'https://app-ba676d71-8e00-445e-8d8b-312fe138d180.cleverapps.io/api/',
+    apiUrl: 'https://app-ba676d71-8e00-445e-8d8b-312fe138d180.cleverapps.io/api',
     featureFlag: {
         enableNewFeature: true,
     },
