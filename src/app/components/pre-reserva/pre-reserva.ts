@@ -19,6 +19,7 @@ export class PreReserva implements OnInit {
   // Lista de procedimentos carregada do banco
   procedimentos: any[] = [];
   unidades: any[] = [];
+  procedimentosSelecionados: any[] = []; // Array para armazenar a seleção múltipla
 
   novoAgendamento: Agendamento = {
     nomeCliente: '',
@@ -50,6 +51,13 @@ export class PreReserva implements OnInit {
   }
 
   finalizarReserva() {
+    // Concatena os procedimentos selecionados para salvar como string
+    if (this.procedimentosSelecionados.length > 0) {
+      this.novoAgendamento.procedimento = this.procedimentosSelecionados
+        .map(p => `${p.nome} (R$ ${p.valor})`)
+        .join(', ');
+    }
+
     this.service.enviarReserva(this.novoAgendamento).subscribe({
       next: (resposta) => {
         // Salva os dados em uma variável local antes de limpar o formulário
@@ -78,6 +86,8 @@ export class PreReserva implements OnInit {
       status: 'PENDENTE',
       unidade: ''
     };
+    
+    this.procedimentosSelecionados = []; // Limpa a seleção múltipla
 
     // Reseta o formulário visualmente (remove erros de validação) e define os valores limpos
     if (this.form) {
