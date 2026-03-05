@@ -1,12 +1,12 @@
 <div class="login-container">
-  <div class="login-card">
+  <div class="login-card" style="width: 90%; max-width: 400px; margin: 0 auto;">
     <h2>Acesso Restrito</h2>
     <form (ngSubmit)="fazerLogin()">
       <div class="logo-container" style="text-align: center; margin-bottom: 20px;">
        <!-- O routerLink redireciona para a rota /reserva -->
         <a routerLink="/reserva" href="/reserva" style="text-decoration: none; cursor: pointer;">
          <!-- Se você tiver uma imagem de logo, use a tag img: -->
-           <!-- <img src="/assets/logo_feita.png" alt="Feita de Bronze" style="max-width: 400px;"> -->
+           <!-- <img src="/assets/logo_feita.png" alt="Feita de Bronze" style="max-width: 100%; height: auto;"> -->
 
            <!-- Caso contrário, use o título estilizzato: -->
          <h1 style="color: #d4af37; font-family: sans-serif;">Feita de Bronze</h1>

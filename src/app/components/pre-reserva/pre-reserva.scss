@@ -9,6 +9,7 @@
   position: relative; /* Para posicionar o botão de área restrita */
   box-sizing: border-box;
   font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; /* Fonte moderna padrão */
+  overflow-y: auto; /* Garante rolagem em telas pequenas */
 }
 
 .reservation-card {
@@ -112,12 +113,39 @@ button.btn-submit {
     color: white;
   }
 
-  @media (max-width: 600px) {
-    position: static;
+  @media (max-width: 768px) {
+    position: static; /* Remove posição absoluta no mobile */
     display: block;
-    margin: 2rem auto 0;
-    width: fit-content;
-    border: none;
-    text-decoration: underline;
+    margin: 0 auto 1.5rem auto; /* Centraliza acima do card */
+    width: 100%;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.3);
+  }
+}
+
+/* --- Melhorias de Responsividade (Mobile) --- */
+@media (max-width: 768px) {
+  .reservation-container {
+    padding: 10px;
+    align-items: flex-start; /* Alinha ao topo para facilitar rolagem com teclado virtual */
+    padding-top: 1rem;
+  }
+
+  .reservation-card {
+    padding: 1.5rem;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .form-group {
+    input, select {
+      font-size: 16px; /* Evita zoom automático no iOS ao focar */
+      padding: 0.8rem; /* Aumenta área de toque */
+    }
+  }
+
+  button.btn-submit {
+    padding: 1rem; /* Botão maior para facilitar o toque */
+    font-size: 1.1rem;
   }
 }

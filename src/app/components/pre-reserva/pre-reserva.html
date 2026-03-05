@@ -44,8 +44,8 @@
         <!-- Ligamos ao 'procedimentosSelecionados' em vez de 'novoAgendamento.procedimento' -->
         <select id="procedimento" name="procedimento" multiple 
                 [(ngModel)]="procedimentosSelecionados" required
-                class="form-control" 
-                style="height: 150px;"> <!-- Altura maior para ver a lista -->
+                class="form-control"
+                style="min-height: 150px;"> <!-- Usar min-height é mais seguro para responsividade -->
           
           <!-- Exibe o Nome e o Valor formatado -->
           <option *ngFor="let proc of procedimentos" [ngValue]="proc">
