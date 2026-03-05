@@ -17,7 +17,7 @@ import { Agendamento } from '../../models/agendamento';
   styleUrl: './admin-dashboard.scss'
 })
 export class AdminDashboard implements OnInit {
-  currentView: string = 'agendamentos'; // Controla qual tela está visível
+  currentView: string = 'home'; // Controla qual tela está visível
   showModal: boolean = false; // Controla a visibilidade do modal
   formType: string = ''; // Define qual formulário exibir (Unidade, Produto, etc.)
   formData: any = {}; // Armazena os dados do formulário
@@ -48,16 +48,16 @@ export class AdminDashboard implements OnInit {
   compras: any[] = [];
 
   menuItems = [
-    { label: 'Financeiro', view: 'financeiro' },
-    { label: 'Comandas', view: 'comandas' },
-    { label: 'Clientes', view: 'clientes' },
-    { label: 'Painel Agendamentos', view: 'agendamentos' }, // Novo item para voltar
-    { label: 'Unidades', view: 'unidades' },
-    { label: 'Usuários', view: 'usuarios' },
-    { label: 'Produtos', view: 'produtos' },
-    { label: 'Procedimentos', view: 'procedimentos' },
-    { label: 'Contas', view: 'contas' },
-    { label: 'Compras', view: 'compras' }
+    { label: 'Financeiro', view: 'financeiro', icon: '💰' },
+    { label: 'Comandas', view: 'comandas', icon: '🧾' },
+    { label: 'Clientes', view: 'clientes', icon: '👥' },
+    { label: 'Painel Agendamentos', view: 'agendamentos', icon: '📅' }, // Novo item para voltar
+    { label: 'Unidades', view: 'unidades', icon: '🏢' },
+    { label: 'Usuários', view: 'usuarios', icon: '👤' },
+    { label: 'Produtos', view: 'produtos', icon: '🛍️' },
+    { label: 'Procedimentos', view: 'procedimentos', icon: '💆‍♀️' },
+    { label: 'Contas', view: 'contas', icon: '💸' },
+    { label: 'Compras', view: 'compras', icon: '🛒' }
   ];
 
   constructor(
@@ -69,7 +69,7 @@ export class AdminDashboard implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.carregarAgendamentos();
+    // this.carregarAgendamentos(); // Carrega apenas quando necessário
   }
 
   toggleMenu() {
@@ -90,6 +90,7 @@ export class AdminDashboard implements OnInit {
 
   selecionarVista(viewName: string) {
     this.currentView = viewName;
+    this.menuAberto = false; // Fecha o menu lateral no mobile se estiver aberto
 
     if (viewName === 'financeiro') {
       this.carregarFinanceiro();
@@ -98,6 +99,10 @@ export class AdminDashboard implements OnInit {
     } else {
       this.carregarAgendamentos();
     }
+  }
+
+  voltarParaHome() {
+    this.currentView = 'home';
   }
 
   carregarClientes() {
@@ -334,14 +339,17 @@ export class AdminDashboard implements OnInit {
     if (!agendamento.id) return;
     
     if (confirm(`Deseja aprovar o agendamento de ${agendamento.nomeCliente}?`)) {
-      this.agendamentoService.aprovarAgendamento(agendamento.id).subscribe({
+      // Correção: Usar o AdminService para atualizar o status, pois a rota específica estava dando 404 (/api/1/aprovar)
+      const agendamentoAtualizado = { ...agendamento, status: 'APROVADO' };
+      
+      this.adminService.salvar('agendamentos', agendamentoAtualizado).subscribe({
         next: () => {
           this.carregarAgendamentos();
           setTimeout(() => alert('Agendamento aprovado com sucesso!'), 100);
         },
         error: (err) => {
           console.error(err);
-          alert('Erro ao aprovar agendamento. Verifique se você tem permissão.');
+          alert('Erro ao aprovar agendamento. Verifique o console.');
         }
       });
     }
