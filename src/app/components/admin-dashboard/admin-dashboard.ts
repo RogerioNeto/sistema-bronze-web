@@ -403,7 +403,11 @@ export class AdminDashboard implements OnInit {
     if (this.currentView === 'unidades') return this.unidades;
     if (this.currentView === 'usuarios') return this.usuarios;
     if (this.currentView === 'clientes') return this.clientes;
-    // ... adicione outros conforme necessário
+    if (this.currentView === 'produtos') return this.produtos;
+    if (this.currentView === 'procedimentos') return this.procedimentos;
+    if (this.currentView === 'contas') return this.contas;
+    if (this.currentView === 'compras') return this.compras;
+    if (this.currentView === 'comandas') return this.comandas;
     return [];
   }
 

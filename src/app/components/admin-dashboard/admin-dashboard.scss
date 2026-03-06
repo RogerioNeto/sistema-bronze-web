@@ -235,3 +235,68 @@ $text-color: #333;
     td.actions-cell { text-align: center; margin-top: 10px; border-top: 1px solid #eee; padding-top: 10px; }
   }
 }
+
+.modal-body {
+  .item-list {
+    margin-top: 1rem;
+    h4 {
+      font-size: 1rem;
+      color: #555;
+      margin-bottom: 0.5rem;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+      max-height: 150px;
+      overflow-y: auto;
+      border: 1px solid #eee;
+      border-radius: 4px;
+    }
+    li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.5rem;
+      border-bottom: 1px solid #eee;
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+    .item-details {
+      font-size: 0.9rem;
+    }
+    .item-actions button {
+      background: none;
+      border: none;
+      color: red;
+      cursor: pointer;
+    }
+    .total-comanda {
+      margin-top: 1rem;
+      text-align: right;
+      font-size: 1.1rem;
+      font-weight: bold;
+      color: $primary-color;
+    }
+  }
+
+  .add-item-section {
+    display: flex;
+    gap: 10px;
+    align-items: flex-end;
+    margin-top: 1rem;
+    border-top: 1px solid #eee;
+    padding-top: 1rem;
+
+    .form-group {
+      flex: 1;
+      margin-bottom: 0;
+    }
+    
+    button {
+      flex-shrink: 0;
+      height: fit-content;
+      padding: 0.6rem 1rem;
+    }
+  }
+}

@@ -118,16 +118,138 @@
         <button class="close-modal" (click)="fecharFormulario()">✕</button>
       </div>
       <div class="modal-body">
-        <!-- Formulário Dinâmico Simplificado -->
-        <form (ngSubmit)="salvarFormulario()">
-          <div class="form-group" *ngFor="let key of getFormKeys()">
-            <label>{{ key | titlecase }}</label>
-            <input [(ngModel)]="formData[key]" [name]="key" class="form-control">
+         <!-- Formulários Específicos por Tipo -->
+        <form (ngSubmit)="salvarFormulario()" #genericForm="ngForm">
+          <div [ngSwitch]="formType">
+
+            <!-- Formulário de Unidade -->
+            <div *ngSwitchCase="'Unidade'">
+              <div class="form-group">
+                <label for="unidadeNome">Nome</label>
+                <input type="text" id="unidadeNome" name="nome" [(ngModel)]="formData.nome" required class="form-control">
+              </div>
+              <div class="form-group">
+                <label for="unidadeEndereco">Endereço</label>
+                <input type="text" id="unidadeEndereco" name="endereco" [(ngModel)]="formData.endereco" class="form-control">
+              </div>
+              <div class="form-group">
+                <label for="unidadeTelefone">Telefone</label>
+                <input type="tel" id="unidadeTelefone" name="telefone" [(ngModel)]="formData.telefone" class="form-control">
+              </div>
+            </div>
+
+            <!-- Formulário de Produto -->
+            <div *ngSwitchCase="'Produto'">
+              <div class="form-group">
+                <label for="produtoNome">Nome</label>
+                <input type="text" id="produtoNome" name="nome" [(ngModel)]="formData.nome" required class="form-control">
+              </div>
+              <div class="form-group">
+                <label for="produtoPreco">Preço</label>
+                <input type="number" id="produtoPreco" name="preco" [(ngModel)]="formData.preco" required class="form-control">
+              </div>
+              <div class="form-group">
+                <label for="produtoEstoque">Quantidade em Estoque</label>
+                <input type="number" id="produtoEstoque" name="quantidadeEstoque" [(ngModel)]="formData.quantidadeEstoque" required class="form-control">
+              </div>
+            </div>
+
+            <!-- Formulário de Procedimento -->
+            <div *ngSwitchCase="'Procedimento'">
+              <div class="form-group">
+                <label for="procNome">Nome</label>
+                <input type="text" id="procNome" name="nome" [(ngModel)]="formData.nome" required class="form-control">
+              </div>
+              <div class="form-group">
+                <label for="procDuracao">Duração (minutos)</label>
+                <input type="text" id="procDuracao" name="duracao" [(ngModel)]="formData.duracao" class="form-control">
+              </div>
+              <div class="form-group">
+                <label for="procValor">Valor</label>
+                <input type="number" id="procValor" name="valor" [(ngModel)]="formData.valor" required class="form-control">
+              </div>
+            </div>
+
+            <!-- Formulário de Cliente -->
+            <div *ngSwitchCase="'Cliente'">
+              <div class="form-group">
+                <label for="clienteNome">Nome</label>
+                <input type="text" id="clienteNome" name="nome" [(ngModel)]="formData.nome" required class="form-control">
+              </div>
+              <div class="form-group">
+                <label for="clienteEmail">Email</label>
+                <input type="email" id="clienteEmail" name="email" [(ngModel)]="formData.email" class="form-control">
+              </div>
+              <div class="form-group">
+                <label for="clienteTelefone">Telefone</label>
+                <input type="tel" id="clienteTelefone" name="telefone" [(ngModel)]="formData.telefone" required class="form-control">
+              </div>
+              <div class="form-group">
+                <label for="clienteApelido">Apelido</label>
+                <input type="text" id="clienteApelido" name="apelido" [(ngModel)]="formData.apelido" class="form-control">
+              </div>
+              <div class="form-group">
+                <label for="clienteObs">Observação</label>
+                <textarea id="clienteObs" name="observacao" [(ngModel)]="formData.observacao" class="form-control"></textarea>
+              </div>
+            </div>
+            
+            <!-- Formulário de Comanda -->
+            <div *ngSwitchCase="'Comanda'">
+              <div class="form-group">
+                <label for="comandaAgendamento">Agendamento Aprovado</label>
+                <select id="comandaAgendamento" name="agendamentoId" [(ngModel)]="formData.agendamentoId" (ngModelChange)="onAgendamentoChange()" class="form-control">
+                  <option [ngValue]="null">Venda Avulsa (sem agendamento)</option>
+                  <option *ngFor="let ag of agendamentosAprovados" [ngValue]="ag.id">
+                    {{ ag.nomeCliente }} - {{ ag.dataHora | date:'dd/MM HH:mm' }}
+                  </option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="comandaCliente">Nome do Cliente</label>
+                <input type="text" id="comandaCliente" name="clienteNome" [(ngModel)]="formData.clienteNome" required class="form-control">
+              </div>
+
+              <!-- Itens da Comanda -->
+              <div class="item-list">
+                <h4>Itens</h4>
+                <ul>
+                  <li *ngFor="let item of itensComanda; let i = index">
+                    <div class="item-details">
+                      {{ item.quantidade }}x {{ item.nome }} 
+                      <span>(R$ {{ item.valorUnitario | number:'1.2-2' }})</span>
+                    </div>
+                    <div class="item-actions">
+                      <button type="button" (click)="removerItemComanda(i)">🗑️</button>
+                    </div>
+                  </li>
+                  <li *ngIf="itensComanda.length === 0" class="empty-state">Nenhum item adicionado.</li>
+                </ul>
+              </div>
+
+            </div>
+
+            <!-- Formulário Genérico para os demais -->
+            <div *ngSwitchDefault>
+              <p>Formulário para '{{ formType }}' não implementado.</p>
+              <div class="form-group" *ngFor="let key of getFormKeys()">
+                <label>{{ key | titlecase }}</label>
+                <input [(ngModel)]="formData[key]" [name]="key" class="form-control">
+              </div>
+            </div>
+
           </div>
+
           <!-- Botões do Modal -->
           <div class="modal-footer">
             <button type="button" class="btn-cancel" (click)="fecharFormulario()">Cancelar</button>
-            <button type="submit" class="btn-save">Salvar</button>
+            <button type="submit" class="btn-save" [disabled]="!genericForm.valid" *ngIf="formType !== 'Comanda'">Salvar</button>
+            
+            <!-- Botões específicos da Comanda -->
+            <ng-container *ngIf="formType === 'Comanda' && !formData.fechada">
+              <button type="button" class="btn-save" (click)="salvarFormulario()">Salvar Rascunho</button>
+              <button type="button" class="btn-submit" (click)="fecharComanda()" [disabled]="!formData.formaPagamento">Fechar Comanda</button>
+            </ng-container>
           </div>
         </form>
       </div>
