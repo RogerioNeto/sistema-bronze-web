@@ -20,11 +20,19 @@ export class AgendamentoService {
   }
 
   getAgendamentos(): Observable<Agendamento[]> {
-    return this.http.get<Agendamento[]>(`${this.URL}/agendamentos`);
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.get<Agendamento[]>(`${this.URL}/agendamentos`, { headers });
   }
 
   aprovarAgendamento(id: number): Observable<void> {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.put<void>(`${this.URL}/${id}/aprovar`, {}, { headers });
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.put<void>(`${this.URL}/agendamentos/${id}/aprovar`, {}, { headers });
   }
 }
